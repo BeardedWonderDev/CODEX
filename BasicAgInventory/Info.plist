@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>CFBundleDisplayName</key>
+    <string>BasicAg Inventory</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>com.example.basicaginventory</string>
+
+    <key>CFBundleVersion</key>
+    <string>1</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>1.0</string>
+
+    <!-- Core Location Usage Descriptions -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>BasicAg Inventory uses your location to capture GPS coordinates when creating farm locations for inventory management. This helps you organize your agricultural inventory by specific barn, field, or storage locations on your property.</string>
+
+    <key>NSLocationUsageDescription</key>
+    <string>This app uses location services to help you create and manage farm locations with GPS coordinates for better inventory organization.</string>
+
+    <!-- Optional: If background location is needed for future features -->
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>BasicAg Inventory may use your location in the background to automatically update inventory locations during field operations. This is optional and helps track equipment movement across your farm.</string>
+
+    <!-- App Transport Security (if needed for any network calls) -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+    </dict>
+
+    <!-- Supported device orientations -->
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+
+    <!-- Minimum iOS version -->
+    <key>LSMinimumSystemVersion</key>
+    <string>16.0</string>
+
+    <!-- Required device capabilities -->
+    <key>UIRequiredDeviceCapabilities</key>
+    <array>
+        <string>armv7</string>
+    </array>
+
+    <!-- Privacy - Camera Usage (if QR code scanning is added later) -->
+    <!--
+    <key>NSCameraUsageDescription</key>
+    <string>BasicAg Inventory can use your camera to scan barcodes and QR codes for quick item identification and inventory management.</string>
+    -->
+
+    <!-- Privacy - Photo Library (if image attachments are added later) -->
+    <!--
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>BasicAg Inventory can access your photo library to attach images to inventory items for better identification and record keeping.</string>
+    -->
+
+</dict>
+</plist>

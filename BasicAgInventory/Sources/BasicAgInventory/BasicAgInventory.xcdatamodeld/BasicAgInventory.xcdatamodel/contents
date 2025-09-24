@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="InventoryItem" representedClassName="InventoryItem" syncable="YES">
+        <attribute name="category" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="expirationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="imageData" optional="YES" attributeType="Binary"/>
+        <attribute name="isActive" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="itemDescription" optional="YES" attributeType="String"/>
+        <attribute name="minimumStock" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="purchaseDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="purchasePrice" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="quantity" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="unit" attributeType="String"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="items" inverseEntity="Location"/>
+        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="InventoryTransaction" inverseName="item" inverseEntity="InventoryTransaction"/>
+        <relationship name="transfers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transfer" inverseName="inventoryItem" inverseEntity="Transfer"/>
+    </entity>
+    <entity name="InventoryTransaction" representedClassName="InventoryTransaction" syncable="YES">
+        <attribute name="changeAmount" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="newQuantity" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="previousQuantity" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <attribute name="reason" attributeType="String"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InventoryItem" inverseName="transactions" inverseEntity="InventoryItem"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="isActive" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="locationDescription" optional="YES" attributeType="String"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="updatedAt" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="incomingTransfers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transfer" inverseName="toLocation" inverseEntity="Transfer"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="InventoryItem" inverseName="location" inverseEntity="InventoryItem"/>
+        <relationship name="outgoingTransfers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transfer" inverseName="fromLocation" inverseEntity="Transfer"/>
+    </entity>
+    <entity name="Transfer" representedClassName="Transfer" syncable="YES">
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="initiatedBy" attributeType="String"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="quantity" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <attribute name="status" attributeType="String" defaultValueString="pending"/>
+        <attribute name="transferDate" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="fromLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="outgoingTransfers" inverseEntity="Location"/>
+        <relationship name="inventoryItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InventoryItem" inverseName="transfers" inverseEntity="InventoryItem"/>
+        <relationship name="toLocation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="incomingTransfers" inverseEntity="Location"/>
+    </entity>
+</model>

@@ -1,0 +1,11 @@
+{
+  "object" : {
+    "originalObjectID" : "A7F4BE32-C8BC-4F99-8A27-123456789ABC"
+  },
+  "objects" : [
+    {
+      "filename" : "BasicAgInventory.xcdatamodel"
+    }
+  ],
+  "objectIDKey" : "originalObjectID"
+}
