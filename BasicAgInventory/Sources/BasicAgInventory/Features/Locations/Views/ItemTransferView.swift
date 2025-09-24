@@ -22,7 +22,7 @@ struct ItemTransferView: View {
         NavigationView {
             VStack(spacing: 0) {
                 // Progress indicator
-                TransferProgressView(
+                TransferStepProgressView(
                     currentStep: viewModel.currentStep,
                     progress: viewModel.stepProgress
                 )
@@ -329,7 +329,7 @@ struct ItemTransferView: View {
 
 // MARK: - Supporting Views
 
-struct TransferProgressView: View {
+struct TransferStepProgressView: View {
     let currentStep: TransferStep
     let progress: Double
 
@@ -359,7 +359,7 @@ struct TransferProgressView: View {
             }
         }
         .padding()
-        .background(Color(.systemGroupedBackground))
+        .background(Color(uiColor: .systemGroupedBackground))
     }
 }
 
@@ -369,7 +369,9 @@ struct ItemSelectionRow: View {
     let onTap: () -> Void
 
     var body: some View {
-        Button(action: onTap) {
+        Button {
+            onTap()
+        } label: {
             HStack {
                 VStack(alignment: .leading) {
                     Text(item.name)
@@ -409,7 +411,9 @@ struct LocationSelectionRow: View {
     let onTap: () -> Void
 
     var body: some View {
-        Button(action: onTap) {
+        Button {
+            onTap()
+        } label: {
             HStack {
                 VStack(alignment: .leading) {
                     Text(location.name)
@@ -524,7 +528,7 @@ struct TransferSummaryCard: View {
             }
         }
         .padding()
-        .background(Color(.systemGroupedBackground))
+        .background(Color(uiColor: .systemGroupedBackground))
         .cornerRadius(8)
     }
 }
@@ -549,7 +553,7 @@ struct TransferCompletionCard: View {
             }
         }
         .padding()
-        .background(Color(.systemGroupedBackground))
+        .background(Color(uiColor: .systemGroupedBackground))
         .cornerRadius(8)
     }
 }
@@ -560,10 +564,10 @@ struct TransferCompletionCard: View {
     ItemTransferView(
         transferService: TransferService(
             context: PersistenceController.preview.container.viewContext,
-            inventoryRepository: InventoryRepository(context: PersistenceController.preview.container.viewContext),
-            locationRepository: LocationRepository(context: PersistenceController.preview.container.viewContext)
+            inventoryRepository: InventoryRepository(persistenceController: PersistenceController.preview),
+            locationRepository: LocationRepository(persistenceController: PersistenceController.preview)
         ),
-        locationRepository: LocationRepository(context: PersistenceController.preview.container.viewContext),
-        inventoryRepository: InventoryRepository(context: PersistenceController.preview.container.viewContext)
+        locationRepository: LocationRepository(persistenceController: PersistenceController.preview),
+        inventoryRepository: InventoryRepository(persistenceController: PersistenceController.preview)
     )
 }

@@ -433,11 +433,11 @@ class LocationDetailViewModel: ObservableObject {
     NavigationView {
         LocationDetailView(
             location: Location(context: PersistenceController.preview.container.viewContext),
-            locationRepository: LocationRepository(context: PersistenceController.preview.container.viewContext),
+            locationRepository: LocationRepository(persistenceController: PersistenceController.preview),
             transferService: TransferService(
                 context: PersistenceController.preview.container.viewContext,
-                inventoryRepository: InventoryRepository(context: PersistenceController.preview.container.viewContext),
-                locationRepository: LocationRepository(context: PersistenceController.preview.container.viewContext)
+                inventoryRepository: InventoryRepository(persistenceController: PersistenceController.preview),
+                locationRepository: LocationRepository(persistenceController: PersistenceController.preview)
             )
         )
     }

@@ -37,7 +37,7 @@ struct TransferHistoryView: View {
                         }
                     }
                     .padding()
-                    .background(Color(.systemGray6))
+                    .background(Color(uiColor: .systemGray6))
                     .cornerRadius(8)
 
                     // Status filter
@@ -295,7 +295,7 @@ struct StatusFilterChip: View {
                 .padding(.vertical, 6)
                 .background(
                     Capsule().fill(
-                        isSelected ? Color.accentColor : Color(.systemGray5)
+                        isSelected ? Color.accentColor : Color(uiColor: .systemGray5)
                     )
                 )
                 .foregroundColor(
@@ -342,7 +342,7 @@ struct TransferDetailView: View {
                         Text(notes)
                             .font(.body)
                             .padding()
-                            .background(Color(.systemGray6))
+                            .background(Color(uiColor: .systemGray6))
                             .cornerRadius(8)
                     }
                 }
@@ -396,7 +396,7 @@ struct TransferOverviewCard: View {
             }
         }
         .padding()
-        .background(Color(.systemGroupedBackground))
+        .background(Color(uiColor: .systemGroupedBackground))
         .cornerRadius(8)
     }
 }
@@ -427,7 +427,7 @@ struct TransferTimelineCard: View {
             }
         }
         .padding()
-        .background(Color(.systemGroupedBackground))
+        .background(Color(uiColor: .systemGroupedBackground))
         .cornerRadius(8)
     }
 }

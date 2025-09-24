@@ -143,34 +143,11 @@ extension Location {
     /// Validate location data
     func validate() throws {
         guard !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            throw LocationError.invalidName
+            throw LocationError.invalidData("Location name cannot be empty")
         }
         guard CLLocationCoordinate2DIsValid(coordinate) else {
-            throw LocationError.invalidCoordinates
+            throw LocationError.invalidCoordinates("GPS coordinates are invalid")
         }
     }
 }
 
-// MARK: - Location Errors
-enum LocationError: Error, LocalizedError {
-    case invalidName
-    case invalidCoordinates
-    case gpsUnavailable
-    case transferFailed
-    case insufficientQuantity
-
-    var errorDescription: String? {
-        switch self {
-        case .invalidName:
-            return "Location name cannot be empty"
-        case .invalidCoordinates:
-            return "GPS coordinates are invalid"
-        case .gpsUnavailable:
-            return "GPS location unavailable. Enter coordinates manually."
-        case .transferFailed:
-            return "Item transfer failed. Please try again."
-        case .insufficientQuantity:
-            return "Not enough items available at source location"
-        }
-    }
-}

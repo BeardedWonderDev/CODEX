@@ -244,7 +244,7 @@ struct CategoryFilterChip: View {
             .padding(.vertical, 6)
             .background(
                 Capsule().fill(
-                    isSelected ? Color.accentColor : Color(.systemGray5)
+                    isSelected ? Color.accentColor : Color(uiColor: .systemGray5)
                 )
             )
             .foregroundColor(
@@ -279,7 +279,9 @@ struct ItemDetailView: View {
             Spacer()
         }
         .navigationTitle(item.name)
+        #if os(iOS)
         .navigationBarTitleDisplayMode(.large)
+        #endif
     }
 }
 
@@ -340,28 +342,39 @@ extension InventoryCategory {
 // MARK: - Preview
 
 #Preview {
-    let context = PersistenceController.preview.container.viewContext
+    LocationInventoryListPreviewContainer()
+}
 
-    // Create sample location
-    let location = Location(context: context)
-    location.id = UUID()
-    location.name = "Main Barn"
-    location.locationDescription = "Primary storage facility"
+struct LocationInventoryListPreviewContainer: View {
+    let location: Location
+    let items: [InventoryItem]
 
-    // Create sample items
-    let items = (0..<10).map { index in
-        let item = InventoryItem(context: context)
-        item.id = UUID()
-        item.name = "Sample Item \(index + 1)"
-        item.itemDescription = "Description for item \(index + 1)"
-        item.quantity = Int32.random(in: 1...100)
-        item.unit = "kg"
-        item.category = InventoryCategory.allCases.randomElement()?.rawValue ?? "supplies"
-        item.location = location
-        return item
+    init() {
+        let context = PersistenceController.preview.container.viewContext
+
+        // Create sample location
+        self.location = Location(context: context)
+        location.id = UUID()
+        location.name = "Main Barn"
+        location.locationDescription = "Primary storage facility"
+
+        // Create sample items
+        self.items = (0..<10).map { index in
+            let item = InventoryItem(context: context)
+            item.id = UUID()
+            item.name = "Sample Item \(index + 1)"
+            item.itemDescription = "Description for item \(index + 1)"
+            item.quantity = Int32.random(in: 1...100)
+            item.unit = "kg"
+            item.category = ["supplies", "equipment", "tools", "feed"].randomElement() ?? "supplies"
+            item.location = location
+            return item
+        }
     }
 
-    return NavigationView {
-        LocationInventoryListView(location: location, items: items)
+    var body: some View {
+        NavigationView {
+            LocationInventoryListView(location: location, items: items)
+        }
     }
 }

@@ -143,12 +143,18 @@ struct TransferStatusBadge: View {
 // MARK: - Preview
 
 #Preview("Transfer Progress") {
-    VStack(spacing: 16) {
-        // Create sample transfers for preview
+    PreviewContainer()
+}
+
+struct PreviewContainer: View {
+    let completedTransfer: Transfer
+    let pendingTransfer: Transfer
+
+    init() {
         let context = PersistenceController.preview.container.viewContext
 
         // Sample completed transfer
-        let completedTransfer = Transfer(context: context)
+        self.completedTransfer = Transfer(context: context)
         completedTransfer.id = UUID()
         completedTransfer.quantity = 5
         completedTransfer.transferDate = Date()
@@ -156,21 +162,25 @@ struct TransferStatusBadge: View {
         completedTransfer.notes = "Moved to barn for winter storage"
 
         // Sample pending transfer
-        let pendingTransfer = Transfer(context: context)
+        self.pendingTransfer = Transfer(context: context)
         pendingTransfer.id = UUID()
         pendingTransfer.quantity = 10
         pendingTransfer.transferDate = Date()
         pendingTransfer.status = Transfer.Status.pending.rawValue
-
-        TransferProgressView(transfer: completedTransfer)
-        TransferProgressView(transfer: pendingTransfer)
-        MinimalTransferProgress(transfer: completedTransfer)
-
-        HStack {
-            TransferStatusBadge(status: .completed)
-            TransferStatusBadge(status: .pending)
-            TransferStatusBadge(status: .cancelled)
-        }
     }
-    .padding()
+
+    var body: some View {
+        VStack(spacing: 16) {
+            TransferProgressView(transfer: completedTransfer)
+            TransferProgressView(transfer: pendingTransfer)
+            MinimalTransferProgress(transfer: completedTransfer)
+
+            HStack {
+                TransferStatusBadge(status: .completed)
+                TransferStatusBadge(status: .pending)
+                TransferStatusBadge(status: .cancelled)
+            }
+        }
+        .padding()
+    }
 }
